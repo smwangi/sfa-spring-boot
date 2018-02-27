@@ -35,6 +35,8 @@ public class ClientDetailsServiceImpl implements ClientDetailsService,ClientRegi
                         BaseClientDetails details = new BaseClientDetails(client.getClientId(), null,client.getScope(),
                                 client.getAuthorizedGrant(), client.getAuthority());
                         details.setClientSecret(client.getClientSecret());
+                        details.setAccessTokenValiditySeconds(client.getAccessTokenValidity());
+                        details.setRefreshTokenValiditySeconds(client.getRefreshTokenValidity());
                         return details;
                     })
             .orElseThrow(() -> new ClientRegistrationException(String.format("no client %s registered", clientId)));

@@ -26,7 +26,7 @@ public class VisitModeController {
     @Autowired
     private VisitModeService visitModeService;
     
-    @PreAuthorize("#oauth2.hasScope('visitmode') and #oauth2.hasScope('read')")
+    @PreAuthorize("#oauth2.hasScope('visitmode')")// and #oauth2.hasScope('read')
     @GetMapping(value = "/")
     @ResponseBody
     public List<VisitMode> findAll(){
