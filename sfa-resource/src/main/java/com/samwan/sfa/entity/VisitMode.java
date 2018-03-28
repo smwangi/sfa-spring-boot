@@ -5,6 +5,7 @@
  */
 package com.samwan.sfa.entity;
 
+import com.google.gson.annotations.Expose;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -23,6 +24,11 @@ import lombok.Setter;
 @Table(name = "visit_modes")
 public class VisitMode extends BaseId {
     
+    @Expose
     @Column(name = "name",length = 150)
     private String name;
+    
+    @Expose
+    @Column(name="description",length = 300)
+    private String description;
 }

@@ -5,6 +5,7 @@
  */
 package com.samwan.sfa.controller;
 
+import com.google.gson.GsonBuilder;
 import com.samwan.sfa.entity.VisitMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.samwan.sfa.service.VisitModeService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 /**
  *
@@ -26,10 +29,17 @@ public class VisitModeController {
     @Autowired
     private VisitModeService visitModeService;
     
-    @PreAuthorize("#oauth2.hasScope('visitmode')")// and #oauth2.hasScope('read')
-    @GetMapping(value = "/")
-    @ResponseBody
-    public List<VisitMode> findAll(){
-        return visitModeService.findAll();
+    /**
+     *
+     * @return
+     */
+    @PreAuthorize("#oauth2.hasScope('visitmode') and #oauth2.hasScope('read')")// 
+    @GetMapping(value = "/",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> findAll(){
+        List<VisitMode> visitModes = visitModeService.findAll();
+        if(visitModes.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        String visitModeResponse = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create().toJson(visitModes);
+        return new ResponseEntity<>(visitModeResponse,HttpStatus.OK);
     }
 }

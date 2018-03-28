@@ -5,6 +5,9 @@
  */
 package com.samwan.sfa.entity;
 
+import com.google.gson.annotations.Expose;
+import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,11 +26,16 @@ import lombok.Setter;
 @MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseId extends BaseEntity {
+public class BaseId extends BaseEntity  implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
+    @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
+    
+    @Expose
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected UUID uuid;
 }

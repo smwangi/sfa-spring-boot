@@ -5,7 +5,9 @@
  */
 package com.samwan.sfa.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import lombok.Data;
@@ -16,7 +18,7 @@ import lombok.Data;
  */
 @Data
 @MappedSuperclass
-public class BaseEntity {
+public class BaseEntity{
     private static final long serialVersionUID = 1L;
     
     protected static final String NOT_DELETED = "deletedOn > CURRENT_TIMESTAMP OR deletedOn IS NULL";
@@ -33,4 +35,6 @@ public class BaseEntity {
     protected Long createdBy;
 
     protected Long updatedBy;
+    
+    protected boolean isActive;
 }
