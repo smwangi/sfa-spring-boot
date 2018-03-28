@@ -49,11 +49,9 @@ public class Opportunity extends BaseId implements Serializable {
     @Column(name = "expected_amount")
     private double expectedAmount;
     @Expose
-    @Column(name = "stageId")
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Stage stage;    
     @Expose
-    @Column(name = "ownerId",updatable = true)
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private CostCentre owner;
 }
